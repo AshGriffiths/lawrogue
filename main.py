@@ -3,12 +3,16 @@ import tcod
 
 from lawrogue.engine import Engine
 from lawrogue.entity import Entity
+from lawrogue.game_map import GameMap
 from lawrogue.input_handlers import EventHandler
 
 
 def main():
     screen_width = 80
     screen_height = 50
+
+    map_width = 80
+    map_height = 45
 
     tileset = tcod.tileset.load_tilesheet(
         "resources/dejavu10x10_gs_tc.png", 32, 8, tcod.tileset.CHARMAP_TCOD
@@ -20,7 +24,9 @@ def main():
     npc = Entity(int(screen_width / 2 - 5), int(screen_height / 2), "@", (255, 255, 0))
     entities = {npc, player}
 
-    engine = Engine(entities, event_handler, player)
+    game_map = GameMap(map_width, map_height)
+
+    engine = Engine(entities, event_handler, game_map, player)
 
     with tcod.context.new_terminal(
         screen_width,
