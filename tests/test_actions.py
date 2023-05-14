@@ -45,7 +45,7 @@ def game_map(player: Entity) -> GameMap:
 
 @pytest.fixture
 def engine(player: Entity, event_handler: EventHandler, game_map: GameMap) -> Engine:
-    return Engine({player}, event_handler, game_map, player)
+    return Engine(event_handler, game_map, player)
 
 
 class TestMovementAction:
