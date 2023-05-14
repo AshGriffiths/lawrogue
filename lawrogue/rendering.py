@@ -16,7 +16,7 @@ tile_graphics: np.array = np.array(
 
 
 def render_map(console: Console, game_map: GameMap) -> None:
-    console.rgb[0 : game_map.width, 0 : game_map.height] = tile_graphics[game_map.tiles]
+    console.rgb[0: game_map.width, 0: game_map.height] = tile_graphics[game_map.tiles]
 
     for entity in game_map.entities:
         console.print(entity.x, entity.y, entity.char, fg=entity.colour)
