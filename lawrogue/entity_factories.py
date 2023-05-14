@@ -1,6 +1,6 @@
-from .components.ai import HostileEnemy
-from .components.fighter import Fighter
-from .entity import Actor
+from lawrogue.components.ai import HostileEnemy
+from lawrogue.components.fighter import Fighter
+from lawrogue.entity import Actor
 
 player = Actor(
     char="@",

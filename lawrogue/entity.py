@@ -2,12 +2,12 @@ from __future__ import annotations
 import copy
 from typing import TypeVar, TYPE_CHECKING
 
-from lawrogue.game_map import GameMap
+from lawrogue.render_order import RenderOrder
 
 if TYPE_CHECKING:
-    from .components.ai import BaseAI
-    from .components.fighter import Fighter
-    from .game_map import GameMap
+    from lawrogue.components.ai import BaseAI
+    from lawrogue.components.fighter import Fighter
+    from lawrogue.game_map import GameMap
 
 T = TypeVar("T", bound="Entity")
 

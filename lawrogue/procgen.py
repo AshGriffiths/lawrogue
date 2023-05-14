@@ -6,9 +6,8 @@ from typing import TYPE_CHECKING
 
 import tcod
 
-from .game_map import GameMap
-
-from . import tile_types, entity_factories
+from lawrogue import tile_types, entity_factories
+from lawrogue.game_map import GameMap
 
 if TYPE_CHECKING:
     from .engine import Engine

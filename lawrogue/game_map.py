@@ -6,12 +6,12 @@ import numpy as np
 
 from tcod.console import Console
 
-from entity import Actor
-from . import tile_types
+from lawrogue import tile_types
+from lawrogue.entity import Actor
 
 if TYPE_CHECKING:
-    from .engine import Engine
-    from .entity import Entity
+    from lawrogue.engine import Engine
+    from lawrogue.entity import Entity
 
 
 class GameMap:

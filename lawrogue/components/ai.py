@@ -6,11 +6,11 @@ import tcod
 
 from lawrogue.entity import Entity
 
-from ..actions import Action, MeleeAction, MovementAction, WaitAction
-from .base_component import BaseComponent
+from lawrogue.actions import Action, MeleeAction, MovementAction, WaitAction
+from lawrogue.components.base_component import BaseComponent
 
 if TYPE_CHECKING:
-    from ..entity import Actor
+    from lawrogue.entity import Actor
 
 
 class BaseAI(Action, BaseComponent):
