@@ -31,9 +31,9 @@ class Fighter(BaseComponent):
     def die(self) -> None:
         if self.engine.player is self.entity:
             death_message = "You died!"
+            self.engine.event_handler = GameOverEventHandler(self.engine)
         else:
             death_message = f"{self.entity.name} is dead!"
-            self.engine.event_handler = GameOverEventHandler(self.engine)
 
         self.entity.char = "%"
         self.entity.color = (191, 0, 0)
