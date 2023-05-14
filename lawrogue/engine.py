@@ -5,11 +5,12 @@ from tcod.context import Context
 from tcod.console import Console
 from tcod.map import compute_fov
 
-from lawrogue.input_handlers import EventHandler
+from lawrogue.input_handlers import MainGameEventHandler
 
 if TYPE_CHECKING:
     from lawrogue.entity import Actor
     from lawrogue.game_map import GameMap
+    from lawrogue.input_handlers import EventHandler
 
 
 class Engine:
@@ -19,7 +20,7 @@ class Engine:
         self,
         player: Actor,
     ) -> None:
-        self.event_handler: EventHandler = EventHandler(self)
+        self.event_handler: EventHandler = MainGameEventHandler(self)
         self.player = player
 
     def handle_enemy_turns(self) -> None:
