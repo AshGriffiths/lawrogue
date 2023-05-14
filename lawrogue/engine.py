@@ -8,7 +8,7 @@ from tcod.map import compute_fov
 from lawrogue.input_handlers import EventHandler
 
 if TYPE_CHECKING:
-    from lawrogue.entity import Entity
+    from lawrogue.entity import Actor
     from lawrogue.game_map import GameMap
 
 
@@ -17,7 +17,7 @@ class Engine:
 
     def __init__(
         self,
-        player: Entity,
+        player: Actor,
     ) -> None:
         self.event_handler: EventHandler = EventHandler(self)
         self.player = player
@@ -40,5 +40,10 @@ class Engine:
 
     def render(self, console: Console, context: Context) -> None:
         self.game_map.render(console)
+        console.print(
+            x=1,
+            y=47,
+            string=f"HP: {self.player.fighter.hp}/{self.player.fighter.max_hp}",
+        )
         context.present(console)
         console.clear()
