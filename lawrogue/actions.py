@@ -2,9 +2,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from lawrogue.engine import Engine
-from lawrogue.entity import Entity
-
 if TYPE_CHECKING:
     from .engine import Engine
     from .entity import Entity

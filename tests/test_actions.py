@@ -73,3 +73,10 @@ class TestMovementAction:
         move_right.perform(engine, player)
         assert player.x == init_x
         assert player.y == init_y
+
+
+class TestMeleeAction:
+    def test_perform(
+        self,
+    ):
+        pass
