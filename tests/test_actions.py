@@ -1,5 +1,7 @@
+import copy
 import pytest
 
+from lawrogue import entity_factories
 from lawrogue.actions import MovementAction
 from lawrogue.engine import Engine
 from lawrogue.entity import Entity
@@ -30,7 +32,7 @@ def move_right() -> MovementAction:
 
 @pytest.fixture
 def player() -> Entity:
-    return Entity(1, 1, "@", (255, 255, 255))
+    return copy.deepcopy(entity_factories.player)
 
 
 @pytest.fixture
@@ -40,7 +42,7 @@ def event_handler() -> EventHandler:
 
 @pytest.fixture
 def game_map(player: Entity) -> GameMap:
-    return generate_dungeon(30, 6, 10, 80, 45, player)
+    return generate_dungeon(30, 6, 10, 80, 45, 2, player)
 
 
 @pytest.fixture
