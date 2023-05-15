@@ -7,15 +7,12 @@ import tcod
 from lawrogue.entity import Entity
 
 from lawrogue.actions import Action, MeleeAction, MovementAction, WaitAction
-from lawrogue.components.base_component import BaseComponent
 
 if TYPE_CHECKING:
     from lawrogue.entity import Actor
 
 
-class BaseAI(Action, BaseComponent):
-    entity: Actor
-
+class BaseAI(Action):
     def perform(self) -> None:
         raise NotImplementedError()
 
