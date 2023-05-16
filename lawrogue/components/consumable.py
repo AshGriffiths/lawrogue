@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 from lawrogue import color
 from lawrogue.actions import Action, ItemAction
 from lawrogue.components.base_component import BaseComponent
+from lawrogue.components.inventory import Inventory
 from lawrogue.exceptions import Impossible
 
 if TYPE_CHECKING:
@@ -27,6 +28,15 @@ class Consumable(BaseComponent):
         """
         raise NotImplementedError()
 
+    def consume(self) -> None:
+        """
+        Remove the consumed item from its containing inventory.
+        """
+        entity = self.parent
+        inv = entity.parent
+        if isinstance(inv, Inventory):
+            inv.items.remove(entity)
+
 
 class HealingConsumable(Consumable):
     def __init__(self, amount: int) -> None:
@@ -41,5 +51,6 @@ class HealingConsumable(Consumable):
                 f"You consume the {self.parent.name}, and recover {amount_recovered} HP!",
                 color.health_recovered,
             )
+            self.consume()
         else:
             raise Impossible(f"Your health is already full.")

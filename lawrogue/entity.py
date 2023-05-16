@@ -19,7 +19,7 @@ class Entity:
     A generic object to represent players, enemies, items, etc.
     """
 
-    parent: GameMap
+    parent: GameMap | Entity
 
     def __init__(
         self,
