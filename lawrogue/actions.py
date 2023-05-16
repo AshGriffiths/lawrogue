@@ -2,10 +2,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from lawrogue import color, exceptions
+from lawrogue.entity import Actor
 
 if TYPE_CHECKING:
     from lawrogue.engine import Engine
-    from lawrogue.entity import Actor, Entity
+    from lawrogue.entity import Actor, Entity, Item
 
 
 class Action:
@@ -27,6 +28,30 @@ class Action:
         This method MUST be overridden by Action subclasses.
         """
         raise NotImplementedError()
+
+
+class ItemAction(Action):
+    def __init__(
+        self, entity: Actor, item: Item, target_xy: tuple[int, int] | None = None
+    ) -> None:
+        super().__init__(entity)
+        self.item = item
+        if not target_xy:
+            target_xy = entity.x, entity.y
+        self.target_xy = target_xy
+
+    @property
+    def target_actor(self) -> Actor | None:
+        """
+        Return the actor at this actions destination.
+        """
+        return self.engine.game_map.get_actor_at_location(*self.target_xy)
+
+    def perform(self) -> None:
+        """
+        Invoke the item's ability, this action will be given to provide context.
+        """
+        self.item.consumable.activate(self)
 
 
 class EscapeAction(Action):

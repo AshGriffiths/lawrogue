@@ -1,6 +1,7 @@
 from lawrogue.components.ai import HostileEnemy
+from lawrogue.components.consumable import HealingConsumable
 from lawrogue.components.fighter import Fighter
-from lawrogue.entity import Actor
+from lawrogue.entity import Actor, Item
 
 player = Actor(
     char="@",
@@ -23,4 +24,11 @@ troll = Actor(
     name="Troll",
     ai_cls=HostileEnemy,
     fighter=Fighter(hp=16, defense=1, power=4),
+)
+
+health_potion = Item(
+    char="!",
+    color=(127, 0, 255),
+    name="Health Potion",
+    consumable=HealingConsumable(amount=4),
 )
