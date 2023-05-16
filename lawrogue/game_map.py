@@ -7,7 +7,7 @@ import numpy as np
 from tcod.console import Console
 
 from lawrogue import tile_types
-from lawrogue.entity import Actor
+from lawrogue.entity import Actor, Item
 
 if TYPE_CHECKING:
     from lawrogue.engine import Engine
@@ -44,6 +44,10 @@ class GameMap:
             for entity in self.entities
             if isinstance(entity, Actor) and entity.is_alive
         )
+
+    @property
+    def items(self) -> Iterator[Item]:
+        yield from (entity for entity in self.entities if isinstance(entity, Item))
 
     def get_blocking_entity_at_location(
         self, location_x: int, location_y: int

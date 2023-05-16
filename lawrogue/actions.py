@@ -2,7 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from lawrogue import color, exceptions
-from lawrogue.entity import Actor
 
 if TYPE_CHECKING:
     from lawrogue.engine import Engine
@@ -28,6 +27,31 @@ class Action:
         This method MUST be overridden by Action subclasses.
         """
         raise NotImplementedError()
+
+
+class PickupAction(Action):
+    """
+    Pickup an item and add it to the inventory, if there is room for it.
+    """
+
+    def __init__(self, entity: Actor) -> None:
+        super().__init__(entity)
+
+    def perform(self) -> None:
+        actor_location_x = self.entity.x
+        actor_location_y = self.entity.y
+        inventory = self.entity.inventory
+
+        for item in self.engine.game_map.items:
+            if actor_location_x == item.x and actor_location_y == item.y:
+                if len(inventory.items) >= inventory.capacity:
+                    raise exceptions.Impossible("Your inventory is full.")
+                self.engine.game_map.entities.remove(item)
+                item.parent = self.entity.inventory
+                inventory.items.append(item)
+                self.engine.message_log.add_message(f"You picked up the {item.name}")
+                return
+        raise exceptions.Impossible("There is nothing there to pick up.")
 
 
 class ItemAction(Action):
@@ -57,6 +81,11 @@ class ItemAction(Action):
 class EscapeAction(Action):
     def perform(self) -> None:
         raise SystemExit()
+
+
+class DropItem(ItemAction):
+    def perform(self) -> None:
+        self.entity.inventory.drop(self.item)
 
 
 class WaitAction(Action):
