@@ -1,7 +1,6 @@
 from __future__ import annotations
 import copy
 from typing import TypeVar, TYPE_CHECKING
-from lawrogue.game_map import GameMap
 
 from lawrogue.render_order import RenderOrder
 
