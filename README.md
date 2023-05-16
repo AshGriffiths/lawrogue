@@ -30,7 +30,9 @@
 ![Product Name Screen Shot][product-screenshot]
 ## About The Project
 
-This is just something for me to have a fun project to work on in my spare time, and to resurrect the work that my wife, friends and I worked on for so many years. 
+This is just something for me to have a fun project to work on in my spare time, and to resurrect the work that my wife, friends and I worked on for so many years.
+
+All the initial implementation was based on the roguelike tutorial that is used for the tutorial tuesdays every year on r/roguelikedev
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
