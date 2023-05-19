@@ -1,4 +1,5 @@
 from __future__ import annotations
+from collections.abc import Callable
 from typing import TYPE_CHECKING, Optional
 
 import tcod
@@ -395,3 +396,18 @@ class LookHandler(SelectIndexHandler):
 
     def on_index_selected(self, x: int, y: int) -> Action | None:
         self.engine.event_handler = MainGameEventHandler(self.engine)
+
+
+class SingleRangedAttackHandler(SelectIndexHandler):
+    """
+    Handles targeting a single enemy. Only the enemy selected will be affected.
+    """
+
+    def __init__(
+        self, engine: Engine, callback: Callable[[tuple[int, int], Action | None]]
+    ) -> None:
+        super().__init__(engine)
+        self.callback = callback
+
+    def on_index_selected(self, x: int, y: int) -> Action | None:
+        return self.callback((x, y))

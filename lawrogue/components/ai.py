@@ -1,12 +1,11 @@
 from __future__ import annotations
+import random
 from typing import TYPE_CHECKING
 
 import numpy as np
 import tcod
 
-from lawrogue.entity import Entity
-
-from lawrogue.actions import Action, MeleeAction, MovementAction, WaitAction
+from lawrogue.actions import Action, BumpAction, MeleeAction, MovementAction, WaitAction
 
 if TYPE_CHECKING:
     from lawrogue.entity import Actor
@@ -37,7 +36,7 @@ class BaseAI(Action):
 
 
 class HostileEnemy(BaseAI):
-    def __init__(self, entity: Entity) -> None:
+    def __init__(self, entity: Actor) -> None:
         super().__init__(entity)
         self.path: list[tuple[int, int]] = []
 
@@ -62,3 +61,44 @@ class HostileEnemy(BaseAI):
             ).perform()
 
         return WaitAction(self.entity).perform()
+
+
+class ConfusedEnemy(BaseAI):
+    """
+    A confused enemy will stumble around aimlessly for a fiven number of turns, then
+    revert back to it's previous AI.
+    If an actor occupies a tile it is randomly moving into, it will attack.
+    """
+
+    def __init__(
+        self, entity: Actor, previous_ai: BaseAI | None, turns_remaining: int
+    ) -> None:
+        super().__init__(entity)
+        self.previous_ai = previous_ai
+        self.turns_remaining = turns_remaining
+
+    def perform(self) -> None:
+        # Revert the AI back to the original state is the effect has run it's course
+        if self.turns_remaining <= 0:
+            self.engine.message_log.add_message(
+                f"The {self.entity.name} is no longer confused."
+            )
+            self.entity.ai = self.previous_ai
+        else:
+            # Pick a random direction
+            direction_x, direction_y = random.choice(
+                [
+                    (0, -1),  # N
+                    (1, -1),  # NE
+                    (1, 0),  # E
+                    (1, 1),  # SE
+                    (0, 1),  # S
+                    (-1, 1),  # SW
+                    (-1, 0),  # w
+                    (-1, -1),  # NW
+                ]
+            )
+
+            self.turns_remaining -= 1
+
+            return BumpAction(self.entity, direction_x, direction_y).perform()

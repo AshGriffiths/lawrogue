@@ -1,7 +1,8 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
-from lawrogue import color, exceptions
+from lawrogue import color
+from lawrogue.exceptions import Impossible
 
 if TYPE_CHECKING:
     from lawrogue.engine import Engine
@@ -45,13 +46,13 @@ class PickupAction(Action):
         for item in self.engine.game_map.items:
             if actor_location_x == item.x and actor_location_y == item.y:
                 if len(inventory.items) >= inventory.capacity:
-                    raise exceptions.Impossible("Your inventory is full.")
+                    raise Impossible("Your inventory is full.")
                 self.engine.game_map.entities.remove(item)
                 item.parent = self.entity.inventory
                 inventory.items.append(item)
                 self.engine.message_log.add_message(f"You picked up the {item.name}")
                 return
-        raise exceptions.Impossible("There is nothing there to pick up.")
+        raise Impossible("There is nothing there to pick up.")
 
 
 class ItemAction(Action):
@@ -125,7 +126,7 @@ class MeleeAction(ActionWithDirection):
     def perform(self) -> None:
         target = self.target_actor
         if not target:
-            raise exceptions.Impossible("Nothing to attack.")
+            raise Impossible("Nothing to attack.")
         damage = self.entity.fighter.power - target.fighter.defense
         attack_desc = f"{self.entity.name.capitalize()} attacks {target.name}"
         if self.entity is self.engine.player:
@@ -149,13 +150,13 @@ class MovementAction(ActionWithDirection):
 
         if not self.engine.game_map.in_bounds(dest_x, dest_y):
             # Destination is out of bounds.
-            raise exceptions.Impossible("That way is blocked.")
+            raise Impossible("That way is blocked.")
         if not self.engine.game_map.tiles["walkable"][dest_x, dest_y]:
             # Destination is blocked by a tile.
-            raise exceptions.Impossible("That way is blocked.")
+            raise Impossible("That way is blocked.")
         if self.engine.game_map.get_blocking_entity_at_location(dest_x, dest_y):
             # Destination is blocked by an entity
-            raise exceptions.Impossible("That way is blocked.")
+            raise Impossible("That way is blocked.")
 
         self.entity.move(self.dx, self.dy)
 

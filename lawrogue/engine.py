@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 from tcod.console import Console
 from tcod.map import compute_fov
 
-from lawrogue import exceptions
+from lawrogue.exceptions import Impossible
 from lawrogue.input_handlers import MainGameEventHandler
 from lawrogue.message_log import MessageLog
 from lawrogue.render_functions import render_bar, render_names_at_mouse_location
@@ -29,7 +29,7 @@ class Engine:
             if entity.ai:
                 try:
                     entity.ai.perform()
-                except exceptions.Impossible():
+                except Impossible:
                     pass  # Ignore impossible action exceptions from AI.
 
     def update_fov(self) -> None:
