@@ -27,7 +27,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-![Product Name Screen Shot][product-screenshot]
+![product-screenshot-2]![product-screenshot]
 ## About The Project
 
 This is just something for me to have a fun project to work on in my spare time, and to resurrect the work that my wife, friends and I worked on for so many years.
@@ -80,3 +80,4 @@ Project Link: [https://github.com/ashgriffiths/lawrogue](https://github.com/ashg
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/ashley-griffiths-296099155
 [product-screenshot]: images/screenshot.png
+[product-screenshot-2]: images/screenshot-2.png
