@@ -8,15 +8,20 @@ from tcod.map import compute_fov
 
 from lawrogue.exceptions import Impossible
 from lawrogue.message_log import MessageLog
-from lawrogue.render_functions import render_bar, render_names_at_mouse_location
+from lawrogue.render_functions import (
+    render_bar,
+    render_dungeon_level,
+    render_names_at_mouse_location,
+)
 
 if TYPE_CHECKING:
     from lawrogue.entity import Actor
-    from lawrogue.game_map import GameMap
+    from lawrogue.game_map import GameMap, GameWorld
 
 
 class Engine:
     game_map: GameMap
+    game_world: GameWorld
 
     def __init__(self, player: Actor) -> None:
         self.message_log = MessageLog()
@@ -51,7 +56,17 @@ class Engine:
             maximum_value=self.player.fighter.max_hp,
             total_width=20,
         )
-        render_names_at_mouse_location(console=console, x=21, y=44, engine=self)
+        render_dungeon_level(
+            console=console,
+            dungeon_level=self.game_world.current_floor,
+            location=(0, 47),
+        )
+        render_names_at_mouse_location(
+            console=console,
+            x=21,
+            y=44,
+            engine=self,
+        )
 
     def save_as(self, filename: str) -> None:
         """

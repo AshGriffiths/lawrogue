@@ -14,6 +14,7 @@ from lawrogue.actions import (
     BumpAction,
     DropItem,
     PickupAction,
+    TakeStairsAction,
     WaitAction,
 )
 
@@ -184,7 +185,13 @@ class MainGameEventHandler(EventHandler):
     def ev_keydown(self, event: tcod.event.KeyDown) -> ActionOrHandler | None:
         action: Action | None = None
         key = event.sym
+        modifier = event.mod
         player = self.engine.player
+
+        if key == tcod.event.K_PERIOD and modifier & (
+            tcod.event.KMOD_LSHIFT | tcod.event.KMOD_RSHIFT
+        ):
+            return TakeStairsAction(player)
 
         if key in MOVE_KEYS:
             dx, dy = MOVE_KEYS[key]
