@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 from lawrogue import color
 from lawrogue.components.base_component import BaseComponent
-from lawrogue.input_handlers import GameOverEventHandler
 from lawrogue.render_order import RenderOrder
 
 if TYPE_CHECKING:
@@ -33,7 +32,6 @@ class Fighter(BaseComponent):
         if self.engine.player is self.parent:
             death_message = "You died!"
             death_message_color = color.player_die
-            self.engine.event_handler = GameOverEventHandler(self.engine)
         else:
             death_message = f"{self.parent.name} is dead!"
             death_message_color = color.enemy_die

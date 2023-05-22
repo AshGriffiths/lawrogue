@@ -5,21 +5,18 @@ from tcod.console import Console
 from tcod.map import compute_fov
 
 from lawrogue.exceptions import Impossible
-from lawrogue.input_handlers import MainGameEventHandler
 from lawrogue.message_log import MessageLog
 from lawrogue.render_functions import render_bar, render_names_at_mouse_location
 
 if TYPE_CHECKING:
     from lawrogue.entity import Actor
     from lawrogue.game_map import GameMap
-    from lawrogue.input_handlers import EventHandler
 
 
 class Engine:
     game_map: GameMap
 
     def __init__(self, player: Actor) -> None:
-        self.event_handler: EventHandler = MainGameEventHandler(self)
         self.message_log = MessageLog()
         self.mouse_location = (0, 0)
         self.player = player
