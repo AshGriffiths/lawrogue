@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from lawrogue.components.consumable import Consumable
     from lawrogue.components.fighter import Fighter
     from lawrogue.components.inventory import Inventory
+    from lawrogue.components.level import Level
     from lawrogue.game_map import GameMap
 
 T = TypeVar("T", bound="Entity")
@@ -95,6 +96,7 @@ class Actor(Entity):
         ai_cls: type[BaseAI],
         fighter: Fighter,
         inventory: Inventory,
+        level: Level,
     ) -> None:
         super().__init__(
             x=x,
@@ -113,6 +115,9 @@ class Actor(Entity):
 
         self.inventory = inventory
         self.inventory.parent = self
+
+        self.level = level
+        self.level.parent = self
 
     @property
     def is_alive(self) -> bool:
