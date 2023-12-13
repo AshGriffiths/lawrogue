@@ -44,7 +44,14 @@ All the initial implementation was based on the roguelike tutorial that is used 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Contributing
 
+### Clone the repo
+
+```bash
+git clone https://github.com/AshGriffiths/lawrogue@latest
+cd lawrogue
+```
 
 
 <!-- LICENSE -->
